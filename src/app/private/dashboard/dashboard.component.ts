@@ -4,34 +4,65 @@ import { Router, RouterOutlet } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AuthState } from "../../store/state";
 import { selectUserProfile } from "../../store/selectors";
+import { DataService } from "src/app/services/data.service";
+import { CommonModule } from "@angular/common";
 
 @Component({
-    selector: 'app-auth',
-    standalone: true,
-    imports: [RouterOutlet, FormsModule],
-    templateUrl: './dashboard.component.html',
-    styleUrl: './dashboard.component.css'
-  })
-  export class DashboardComponent { 
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [RouterOutlet, FormsModule, CommonModule],
+  providers: [DataService],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css'
+})
+export class DashboardComponent {
 
-    name!: string;
-    constructor( private router: Router, private store: Store<{ auth: AuthState }>) {}
+  userCount!: number;
+  stringCount!: number;
+  treeCount!: number;
+  users: any = [];
+  skip = 0;
+  limit = 15;
 
-    ngOnInit() {
-      this.store.select(selectUserProfile).subscribe(res => {
-        if(res && res.name) {
-          this.name = res.name;
-        }
-      })
-    }
+  name!: string;
+  constructor(private router: Router, private dataService: DataService) { }
 
-    goToStringAnalysis() {
-      this.router.navigate(['/private/substring']);
-    }
+  ngOnInit() {
+    this.getAdminData();
+    this.getAllUsers()
+  }
 
-    goToTreeVisualizer() {
-      this.router.navigate(['/private/tree']);
-    }
 
+  getAdminData() {
+    this.dataService.getAdminData().subscribe((res: any) => {
+      if (res) {
+        this.userCount = res.userCount;
+        this.stringCount = res.stringsCount;
+        this.treeCount = res.treesCount;
+
+      }
+    })
+  }
+
+  changeUserStatus(isBlocked: boolean, id: number) {
+    this.dataService.changeUserBlockStatus({ userId: id, isBlocked }).subscribe(res => {
+      if (res) {
+        this.users = [];
+        this.getAllUsers();
+      }
+    })
+  }
+
+  getAllUsers() {
+    this.dataService.getAllUsers({ skip: this.skip, limit: this.limit }).subscribe((res: any) => {
+      this.users = this.users.concat(JSON.parse(JSON.stringify(res)));
+    })
 
   }
+
+  loadMore() {
+    this.skip += this.limit;
+    this.getAllUsers();
+  }
+
+}

@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
-  private tokenKey = 'auth_token';
+  private tokenKey = 'admin_auth_token';
   private userProfileSubject = new BehaviorSubject<any | null>(null);
   
   constructor(private http: HttpClient, private store: Store<{ auth: AuthState }>, private router: Router) {
@@ -43,19 +43,19 @@ export class AuthService {
 
     const headers = new HttpHeaders().set('auth-key', `${token}`);
     
-    return this.http.get<any>(`${this.apiUrl}/auth/user`, { headers }).pipe(
+    return this.http.get<any>(`${this.apiUrl}/auth/admin/user`, { headers }).pipe(
       tap(profile => this.userProfileSubject.next(profile))
     );
   }
 
   login(credentials: any): Observable<any> {
-   return this.http.post<any>(`${this.apiUrl}/auth/login`, credentials)
+   return this.http.post<any>(`${this.apiUrl}/auth/admin/login`, credentials)
   }
 
   logout(){
     this.clearTokens();
     this.store.dispatch(AuthActions.logout());
-    this.router.navigate([''])
+    window.location.href = "#";
   }
 
   isAuthenticated(): boolean {
@@ -68,7 +68,7 @@ export class AuthService {
 
 
   register(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/auth/register`, credentials)
+    return this.http.post<any>(`${this.apiUrl}/auth/admin/register`, credentials)
   }
 
 }

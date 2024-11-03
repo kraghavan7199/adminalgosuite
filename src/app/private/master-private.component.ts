@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
-import { HeaderComponent } from "../components/header/header.component";
-import { FooterComponent } from "../components/footer/footer.component";
+import { AuthService } from "../services/auth.service";
+
 
 
 
@@ -10,13 +10,20 @@ import { FooterComponent } from "../components/footer/footer.component";
 @Component({
     selector: 'app-private',
     standalone: true,
-    imports: [RouterOutlet, HeaderComponent, FooterComponent],
-    templateUrl: './master-private.component.html'
+    imports: [RouterOutlet],
+    templateUrl: './master-private.component.html',
+    styleUrl: './master-private.component.css'
     
   })
   export class MasterPrivateComponent { 
 
+    constructor(private authService: AuthService) {}
+
     ngOnInit() {
 
+    }
+
+    logout() {
+      this.authService.logout();
     }
   }
