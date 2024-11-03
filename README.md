@@ -4,14 +4,14 @@ Administrative dashboard for managing the AlgoSuite application. Monitor user ac
 
  **Access:** [https://adminalgosuite.netlify.app/auth](https://adminalgosuite.netlify.app/auth)
 
-## 🎯 Features
+## Features
 
-### 👥 User Management
+### User Management
 - View comprehensive list of all registered users
 - User access control:
   - Block/unblock user accounts
 
-### 📊 Analytics Dashboard
+### Analytics Dashboard
 - **String Calculator Analytics:**  Total strings processed
 - **Binary Tree Analytics:** Total trees generated
 - **User Analytics:** Registered User Count
@@ -23,7 +23,7 @@ Administrative dashboard for managing the AlgoSuite application. Monitor user ac
 - RESTful API integration
 
 
-## 📦 Installation
+## Installation
 
 ```bash
 # Clone the admin repository
@@ -39,7 +39,7 @@ npm install
 ng serve
 ```
 
-## 📱 Responsive Design
+## Responsive Design
 
 The admin panel is optimized for:
 - Desktop workstations
