@@ -59,7 +59,7 @@
             </table>
           </div>
         
-          <div class="text-center mt-4">
+          <div *ngIf="showLoadMore" class="text-center mt-4">
             <button (click)="loadMore()" class="btn btn-primary" id="loadMoreBtn">Load More</button>
           </div>
         </div>

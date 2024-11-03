@@ -23,6 +23,7 @@ export class DashboardComponent {
   users: any = [];
   skip = 0;
   limit = 15;
+  showLoadMore = true;
 
   name!: string;
   constructor(private router: Router, private dataService: DataService) { }
@@ -55,6 +56,7 @@ export class DashboardComponent {
 
   getAllUsers() {
     this.dataService.getAllUsers({ skip: this.skip, limit: this.limit }).subscribe((res: any) => {
+      this.showLoadMore = res.length === this.limit;
       this.users = this.users.concat(JSON.parse(JSON.stringify(res)));
     })
 
