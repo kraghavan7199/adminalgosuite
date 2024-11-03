@@ -27,7 +27,7 @@ Administrative dashboard for managing the AlgoSuite application. Monitor user ac
 
 ```bash
 # Clone the admin repository
-git clone [https://github.com/kraghavan7199/adminalgosuite.git]
+git clone https://github.com/kraghavan7199/adminalgosuite.git
 
 # Navigate to project directory
 cd adminalgosuite
